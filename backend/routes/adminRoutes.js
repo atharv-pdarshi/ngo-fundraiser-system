@@ -41,12 +41,51 @@ router.get('/stats', adminAuth, async (req, res) => {
 });
 
 // @route   GET /api/admin/users
-// @desc    Get all users for the table
+// @desc    Get all users WITH their total donation amount
 router.get('/users', adminAuth, async (req, res) => {
     try {
-        const users = await User.find({ role: 'user' }).select('-password').sort({ createdAt: -1 });
+        const users = await User.aggregate([
+            { $match: { role: 'user' } }, // 1. Get only normal users
+            {
+                $lookup: { // 2. Join with Donations table
+                    from: 'donations',
+                    localField: '_id',
+                    foreignField: 'user',
+                    as: 'donationHistory'
+                }
+            },
+            {
+                $addFields: { // 3. Calculate Total Success Donation
+                    totalDonated: {
+                        $sum: {
+                            $map: {
+                                input: { 
+                                    $filter: { // Only count 'success' donations
+                                        input: "$donationHistory", 
+                                        as: "d", 
+                                        cond: { $eq: ["$$d.status", "success"] } 
+                                    } 
+                                },
+                                as: "validDonation",
+                                in: "$$validDonation.amount"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                $project: { // 4. Clean up output (Hide password & history array)
+                    password: 0,
+                    donationHistory: 0,
+                    __v: 0
+                }
+            },
+            { $sort: { createdAt: -1 } } // 5. Newest users first
+        ]);
+        
         res.json(users);
     } catch (err) {
+        console.error(err);
         res.status(500).json({ error: err.message });
     }
 });
