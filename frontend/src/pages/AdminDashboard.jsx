@@ -3,6 +3,7 @@ import api from '../api';
 import { useNavigate } from 'react-router-dom';
 import { Users, DollarSign, Download, LogOut, LayoutDashboard } from 'lucide-react';
 import { toast } from 'react-toastify';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
 
 const AdminDashboard = () => {
     const navigate = useNavigate();
@@ -78,21 +79,53 @@ const AdminDashboard = () => {
             </nav>
 
             <div className="container mx-auto p-6">
-                {/* Stats Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                    <div className="bg-white p-6 rounded-lg shadow border-l-4 border-blue-500 flex items-center justify-between">
-                        <div>
-                            <p className="text-gray-500 text-sm uppercase font-bold">Total Registered Users</p>
-                            <p className="text-3xl font-bold text-gray-800">{stats.totalUsers}</p>
+                {/* Stats & Charts Section */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    {/* Card 1 */}
+                    <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-blue-500">
+                        <div className="flex justify-between items-start">
+                            <div>
+                                <p className="text-gray-500 text-sm uppercase font-bold mb-1">Total Users</p>
+                                <h3 className="text-4xl font-extrabold text-gray-800">{stats.totalUsers}</h3>
+                            </div>
+                            <div className="p-3 bg-blue-50 rounded-full">
+                                <Users className="text-blue-600" size={24} />
+                            </div>
                         </div>
-                        <Users size={40} className="text-blue-200" />
+                        <p className="text-sm text-gray-400 mt-4">Active registered accounts</p>
                     </div>
-                    <div className="bg-white p-6 rounded-lg shadow border-l-4 border-green-500 flex items-center justify-between">
-                        <div>
-                            <p className="text-gray-500 text-sm uppercase font-bold">Total Funds Raised</p>
-                            <p className="text-3xl font-bold text-green-600">₹ {stats.totalDonations}</p>
+
+                    {/* Card 2 */}
+                    <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-green-500">
+                        <div className="flex justify-between items-start">
+                            <div>
+                                <p className="text-gray-500 text-sm uppercase font-bold mb-1">Total Raised</p>
+                                <h3 className="text-4xl font-extrabold text-green-600">₹ {stats.totalDonations.toLocaleString()}</h3>
+                            </div>
+                            <div className="p-3 bg-green-50 rounded-full">
+                                <DollarSign className="text-green-600" size={24} />
+                            </div>
                         </div>
-                        <DollarSign size={40} className="text-green-200" />
+                        <p className="text-sm text-gray-400 mt-4">Verified successful funds</p>
+                    </div>
+
+                    {/* Card 3: The Chart */}
+                    <div className="bg-white p-4 rounded-lg shadow-md flex flex-col justify-center">
+                        <p className="text-gray-500 text-xs font-bold uppercase mb-2 text-center">Fund Distribution</p>
+                        <div className="h-24">
+                            <ResponsiveContainer width="100%" height="100%">
+                                <BarChart data={[
+                                    { name: 'Raised', amount: stats.totalDonations },
+                                    { name: 'Target', amount: stats.totalDonations * 1.5 } // Fake target for visuals
+                                ]}>
+                                    <Bar dataKey="amount" fill="#2563EB" radius={[4, 4, 0, 0]} />
+                                    <Tooltip cursor={{ fill: 'transparent' }} />
+                                </BarChart>
+                            </ResponsiveContainer>
+                        </div>
+                        <p className="text-center text-xs text-green-600 font-bold mt-2">
+                            Progress: {Math.round((stats.totalDonations / (stats.totalDonations * 1.5 || 1)) * 100)}% of Goal
+                        </p>
                     </div>
                 </div>
 

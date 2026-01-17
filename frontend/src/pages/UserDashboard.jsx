@@ -78,18 +78,37 @@ const UserDashboard = () => {
                         <CreditCard className="text-blue-600" /> Make a Donation
                     </h2>
                     <p className="text-gray-600 mb-4 text-sm">Support the cause. Your contribution matters.</p>
+
                     <form onSubmit={handleDonate} className="space-y-4">
                         <div>
-                            <label className="block text-gray-700 font-medium mb-1">Amount (INR)</label>
-                            <input 
-                                type="number" 
+                            <label className="block text-gray-700 font-medium mb-2">Amount (INR)</label>
+
+                            {/* Quick Select Buttons */}
+                            <div className="grid grid-cols-3 gap-2 mb-3">
+                                {[100, 500, 1000].map((val) => (
+                                    <button
+                                        key={val}
+                                        type="button"
+                                        onClick={() => setAmount(val)}
+                                        className={`py-1 px-2 text-sm border rounded transition font-medium ${amount == val
+                                                ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
+                                                : 'bg-white text-gray-600 border-gray-300 hover:bg-gray-50'
+                                            }`}
+                                    >
+                                        ₹{val}
+                                    </button>
+                                ))}
+                            </div>
+
+                            <input
+                                type="number"
                                 value={amount}
                                 onChange={(e) => setAmount(e.target.value)}
                                 className="w-full p-2 border rounded focus:outline-blue-500"
-                                placeholder="e.g. 500"
+                                placeholder="Enter custom amount"
                             />
                         </div>
-                        <button type="submit" className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition font-bold">
+                        <button type="submit" className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition font-bold shadow-md">
                             Donate Now
                         </button>
                     </form>
