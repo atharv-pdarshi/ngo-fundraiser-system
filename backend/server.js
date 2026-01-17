@@ -28,8 +28,8 @@ app.get('/', (req, res) => {
     res.send('API is running...');
 });
 
-// Routes (We will add these in the next step)
-// app.use('/api/auth', require('./routes/authRoutes'));
+// Import Routes
+app.use('/api/auth', require('./routes/authRoutes'));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
