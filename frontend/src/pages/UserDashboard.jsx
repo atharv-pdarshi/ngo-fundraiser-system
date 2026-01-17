@@ -39,21 +39,22 @@ const UserDashboard = () => {
 
     const handleDonate = async (e) => {
         e.preventDefault();
-        if (!amount || amount <= 0) return toast.error('Please enter a valid amount');
+        if (!amount || amount <= 0) return toast.error('Enter valid amount');
 
         try {
             const token = localStorage.getItem('token');
-            await api.post('/donations/create', 
+            const res = await api.post('/donations/create-checkout-session', 
                 { amount },
                 { headers: { 'x-auth-token': token } }
             );
-            toast.success('Donation Initiated! (Status: Pending)');
-            setAmount('');
-            // Refresh list
-            const res = await api.get('/donations/my-history', { headers: { 'x-auth-token': token } });
-            setDonations(res.data);
+            
+            // Redirect user to Stripe's hosted page
+            if (res.data.url) {
+                window.location.href = res.data.url;
+            }
         } catch (err) {
-            toast.error('Donation Failed');
+            console.error(err);
+            toast.error('Payment Failed to Initialize');
         }
     };
 

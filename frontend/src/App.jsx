@@ -3,6 +3,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import UserDashboard from './pages/UserDashboard';
 import AdminDashboard from './pages/AdminDashboard';
+import PaymentSuccess from './pages/PaymentSuccess';
 
 // Simple Landing Page Component
 const Home = () => (
@@ -40,7 +41,11 @@ function App() {
           <AdminDashboard />
         </ProtectedRoute>
       } />
+
+    <Route path="/payment-success" element={<PaymentSuccess />} />
+
     </Routes>
+
   );
 }
 
