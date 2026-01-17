@@ -1,35 +1,47 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Routes, Route, Navigate } from 'react-router-dom';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import UserDashboard from './pages/UserDashboard';
+import AdminDashboard from './pages/AdminDashboard';
+
+// Simple Landing Page Component
+const Home = () => (
+  <div className="min-h-screen bg-blue-50 flex flex-col items-center justify-center">
+    <h1 className="text-4xl font-bold text-blue-900 mb-4">NSS Donation Portal</h1>
+    <p className="text-gray-600 mb-8">Secure, Transparent, and Impactful.</p>
+    <div className="space-x-4">
+      <a href="/login" className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Login</a>
+      <a href="/register" className="px-6 py-2 border border-blue-600 text-blue-600 rounded hover:bg-blue-50">Register</a>
+    </div>
+  </div>
+);
+
+// Helper to protect routes (Redirects to login if no token found)
+const ProtectedRoute = ({ children }) => {
+    const token = localStorage.getItem('token');
+    return token ? children : <Navigate to="/login" />;
+};
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      
+      <Route path="/dashboard" element={
+        <ProtectedRoute>
+            <UserDashboard />
+        </ProtectedRoute>
+      } />
+
+      <Route path="/admin" element={
+        <ProtectedRoute>
+          <AdminDashboard />
+        </ProtectedRoute>
+      } />
+    </Routes>
+  );
 }
 
-export default App
+export default App;
