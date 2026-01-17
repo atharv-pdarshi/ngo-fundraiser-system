@@ -12,6 +12,7 @@ const PaymentSuccess = () => {
         const verify = async () => {
             const sessionId = searchParams.get('session_id');
             const donationId = searchParams.get('donation_id');
+            const campaignId = searchParams.get('campaign_id');
             const token = localStorage.getItem('token');
 
             if (!sessionId || !donationId) {
@@ -21,7 +22,7 @@ const PaymentSuccess = () => {
 
             try {
                 await api.post('/donations/verify-payment', 
-                    { session_id: sessionId, donation_id: donationId },
+                    { session_id: sessionId, donation_id: donationId, campaign_id: campaignId },
                     { headers: { 'x-auth-token': token } }
                 );
                 setStatus('Payment Successful!');
