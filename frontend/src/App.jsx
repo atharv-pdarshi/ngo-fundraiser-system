@@ -6,6 +6,7 @@ import Register from './pages/Register';
 import UserDashboard from './pages/UserDashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import PaymentSuccess from './pages/PaymentSuccess';
+import PaymentFailure from './pages/PaymentFailure';
 
 // Consolidated Icons
 import { Heart, Shield, Users, ArrowRight, Award, Target } from 'lucide-react';
@@ -15,7 +16,7 @@ const Home = () => {
     const [campaigns, setCampaigns] = useState([]);
 
     useEffect(() => {
-        api.get('/campaigns').then(res => setCampaigns(res.data.slice(0,3))).catch(e => console.log(e));
+        api.get('/campaigns').then(res => setCampaigns(res.data.slice(0, 3))).catch(e => console.log(e));
     }, []);
 
     return (
@@ -39,7 +40,7 @@ const Home = () => {
                         <Award size={14} /> Official NSS Initiative
                     </div>
                     <h1 className="text-6xl md:text-7xl font-black text-slate-900 leading-tight">
-                        Empower <br/>
+                        Empower <br />
                         <span className="text-blue-600 italic">Communities.</span>
                     </h1>
                     <p className="text-xl text-slate-500 leading-relaxed font-medium">
@@ -53,9 +54,9 @@ const Home = () => {
                 </div>
                 <div className="md:w-1/2 relative group">
                     <div className="absolute -inset-4 bg-gradient-to-tr from-blue-600 to-cyan-400 rounded-3xl opacity-20 blur-2xl group-hover:opacity-30 transition duration-1000"></div>
-                    <img 
-                        src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1200&q=80" 
-                        alt="Impact" 
+                    <img
+                        src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1200&q=80"
+                        alt="Impact"
                         className="rounded-3xl shadow-2xl relative z-10 w-full aspect-[4/3] object-cover grayscale-[20%] group-hover:grayscale-0 transition duration-700"
                     />
                 </div>
@@ -69,7 +70,7 @@ const Home = () => {
                             <h2 className="text-4xl font-black text-slate-900 italic">Live Causes</h2>
                             <p className="text-slate-500 font-bold uppercase tracking-widest text-xs">Verified by NSS Relief Core</p>
                         </div>
-                        <a href="/register" className="text-blue-600 font-black text-sm flex items-center gap-1 hover:underline">VIEW ALL CAUSES <ArrowRight size={14}/></a>
+                        <a href="/register" className="text-blue-600 font-black text-sm flex items-center gap-1 hover:underline">VIEW ALL CAUSES <ArrowRight size={14} /></a>
                     </div>
 
                     <div className="grid md:grid-cols-3 gap-8">
@@ -88,9 +89,9 @@ const Home = () => {
                                             <span className="text-slate-300">GOAL: ₹{c.targetAmount.toLocaleString()}</span>
                                         </div>
                                         <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
-                                            <div 
-                                                className="bg-blue-600 h-full transition-all duration-1000" 
-                                                style={{ width: `${Math.min(100, (c.raisedAmount/c.targetAmount)*100)}%` }}
+                                            <div
+                                                className="bg-blue-600 h-full transition-all duration-1000"
+                                                style={{ width: `${Math.min(100, (c.raisedAmount / c.targetAmount) * 100)}%` }}
                                             ></div>
                                         </div>
                                     </div>
@@ -121,26 +122,27 @@ const ProtectedRoute = ({ children }) => {
 
 // --- MAIN APP COMPONENT ---
 function App() {
-  return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/payment-success" element={<PaymentSuccess />} />
-      
-      <Route path="/dashboard" element={
-        <ProtectedRoute>
-            <UserDashboard />
-        </ProtectedRoute>
-      } />
+    return (
+        <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/payment-success" element={<PaymentSuccess />} />
+            <Route path="/payment-failure" element={<PaymentFailure />} />
 
-      <Route path="/admin" element={
-        <ProtectedRoute>
-            <AdminDashboard />
-        </ProtectedRoute>
-      } />
-    </Routes>
-  );
+            <Route path="/dashboard" element={
+                <ProtectedRoute>
+                    <UserDashboard />
+                </ProtectedRoute>
+            } />
+
+            <Route path="/admin" element={
+                <ProtectedRoute>
+                    <AdminDashboard />
+                </ProtectedRoute>
+            } />
+        </Routes>
+    );
 }
 
 export default App;

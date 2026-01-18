@@ -56,7 +56,7 @@ router.post('/create-checkout-session', auth, async (req, res) => {
             mode: 'payment',
             // Pass campaignId and donationId in URL
             success_url: `${process.env.CLIENT_URL}/payment-success?session_id={CHECKOUT_SESSION_ID}&donation_id=${newDonation._id}&campaign_id=${campaignId}`,
-            cancel_url: `${process.env.CLIENT_URL}/dashboard`,
+            cancel_url: `${process.env.CLIENT_URL}/payment-failure`,
         });
 
         newDonation.orderId = session.id;
@@ -74,15 +74,15 @@ router.post('/verify-payment', auth, async (req, res) => {
 
         if (session.payment_status === 'paid') {
             // 1. Update Donation Status
-            const donation = await Donation.findByIdAndUpdate(donation_id, { 
+            const donation = await Donation.findByIdAndUpdate(donation_id, {
                 status: 'success',
                 paymentId: session.payment_intent
             }).populate('user', 'name email');
 
             // 2. Update Campaign Raised Amount
             if (campaign_id) {
-                await Campaign.findByIdAndUpdate(campaign_id, { 
-                    $inc: { raisedAmount: donation.amount } 
+                await Campaign.findByIdAndUpdate(campaign_id, {
+                    $inc: { raisedAmount: donation.amount }
                 });
             }
 
