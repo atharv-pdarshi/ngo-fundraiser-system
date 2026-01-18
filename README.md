@@ -10,31 +10,31 @@ Unlike traditional platforms that simply collect money, **ReliefCore** enforces 
 
 ### 1. The Public Face
 The landing page allows anyone to browse verified causes. It features a premium, responsive design with smooth animations.
-![Home Page](docs/images/home_page_top_1768741103640.png)
+![Home Page](docs/images/home_page.png)
 
 ### 2. Secure Authentication
 Users and Admins access the system via a secure login portal using JWT Authentication.
-![Login Page](docs/images/login_page_1768741236284.png)
+![Login Page](docs/images/login_page.png)
 
 ### 3. User Dashboard (The Donor Experience)
 Once logged in, donors can view active campaigns, make quick donations, and track their personal contribution history.
-![User Dashboard](docs/images/user_dashboard_top_1768741353730.png)
+![User Dashboard](docs/images/user_dashboard.png)
 
 ### 4. The Impact Timeline (Financial Transparency)
 This is the core feature of ReliefCore. It displays a live feed of the NGO's expenditures. Donors can see tangible proof of work (e.g., procurement of food, medicine) in chronological order.
-![Impact Timeline](docs/images/impact_timeline_bottom_1768741380405.png)
+![Impact Timeline](docs/images/impact_timeline.png)
 
 ### 5. Admin Portal (Financial Control)
 The Admin Dashboard provides a bird's-eye view of the organization's health. It tracks **"Total Collected" vs. "Total Spent"** and enforces a strict rule: **You cannot spend what you do not have.**
-![Admin Dashboard](docs/images/admin_dashboard_overview_1768741624923.png)
+![Admin Dashboard](docs/images/admin_dashboard.png)
 
 ### 6. Expense Logging
 Admins use this interface to record expenditures. The backend validates each entry against the available funds before saving it to the database.
-![Expense Log](docs/images/admin_expense_log_1768741828719.png)
+![Expense Log](docs/images/admin_expense_log.png)
 
-### 7. Graceful Error Handling
-If a payment fails (e.g., cancelled transaction or network error), the user is guided by a friendly error page instead of a system crash.
-![Payment Failure](docs/images/payment_failure_page_1768741934563.png)
+### 7. Donation Rewards & Certification
+Upon every successful donation, the user receives an instant email confirmation and a downloadable **Certificate of Appreciation**, reinforcing the value of their contribution.
+![Certificate](docs/images/donation_certificate.png)
 
 ---
 
