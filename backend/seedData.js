@@ -41,7 +41,7 @@ const seedData = async () => {
                 description: "Urgent funds needed for food, shelter, and medical aid for families affected by the recent floods in Kerala/Wayanad region.",
                 targetAmount: 500000,
                 raisedAmount: 0, // Will update below
-                imageUrl: "https://images.unsplash.com/photo-1547638375-ebf04735d96d?auto=format&fit=crop&w=800&q=80" // Flood/Rain image
+                imageUrl: "https://images.unsplash.com/photo-1547638385-d242398d3615?auto=format&fit=crop&w=800&q=80" // Alternative Flood/Rain image
             },
             {
                 title: "Educate a Girl Child",
