@@ -1,5 +1,7 @@
 # ReliefCore - Advanced NGO Financial Transparency System
 
+- Chehek Agrawal : 23117012 & Atharv Priyadarshi : 23117034
+
 Welcome to **ReliefCore**, a comprehensive MERN-stack application designed to revolutionize how Non-Governmental Organizations (NGOs) operate and interact with donors. 
 
 Unlike traditional platforms that simply collect money, **ReliefCore** enforces financial integrity through a **"Zero-Deficit" budget guard** and provides donors with a real-time **Impact Timeline**, showing exactly where their contributions are spent.
@@ -117,4 +119,3 @@ node seedData.js
 
 ---
 
-*Verified & Tested by ReliefCore Team.*
