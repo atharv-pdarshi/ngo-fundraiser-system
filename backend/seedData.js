@@ -41,7 +41,7 @@ const seedData = async () => {
                 description: "Urgent funds needed for food, shelter, and medical aid for families affected by the recent floods in Kerala/Wayanad region.",
                 targetAmount: 500000,
                 raisedAmount: 0, // Will update below
-                imageUrl: "https://images.unsplash.com/photo-1547638385-d242398d3615?auto=format&fit=crop&w=800&q=80" // Alternative Flood/Rain image
+                imageUrl: "/kerala-flood-relief.png" // Local image
             },
             {
                 title: "Educate a Girl Child",
@@ -58,7 +58,7 @@ const seedData = async () => {
                 imageUrl: "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=800&q=80" // Dog image
             },
             {
-                title: "Clean Water for Bihaar",
+                title: "Clean Water for Bihar",
                 description: "Installing 50 water purifiers in drought-hit villages.",
                 targetAmount: 300000,
                 raisedAmount: 0,
